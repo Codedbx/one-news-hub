@@ -1,0 +1,52 @@
+# Dependency directories
+vendor/
+node_modules/
+
+# Composer files
+composer.phar
+composer.lock
+
+# Laravel specific
+bootstrap/cache/
+storage/*.key
+storage/logs/
+storage/framework/sessions/
+storage/framework/views/
+storage/framework/cache/
+
+# Environment files
+.env
+.env.backup
+.env.production
+
+# Deployment and CI files
+.git
+.gitignore
+
+# Compiled files
+public/hot
+public/storage
+
+# IDE and editor folders
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Miscellaneous
+.DS_Store
+Thumbs.db
+
+# Logs and cache
+*.log
+_ide_helper.php
+.phpunit.result.cache
+
+# Testing
+tests/
+coverage/
+
+# Laravel specific cache and temp files
+storage/framework/cache/data/*
+storage/framework/views/*
+storage/framework/sessions/*
