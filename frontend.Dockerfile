@@ -2,7 +2,7 @@
 FROM node:18-alpine
 
 # Set working directory
-WORKDIR /src
+WORKDIR /app
 
 # Install git (sometimes needed for npm dependencies)
 RUN apk add --no-cache git
@@ -14,7 +14,7 @@ COPY ./news-frontend/package*.json ./
 RUN npm install
 
 # Copy entire frontend project
-COPY ./news-frontend .
+COPY ./news-frontend ./
 
 # Expose port for Vite dev server
 EXPOSE 5173

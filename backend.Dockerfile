@@ -32,9 +32,6 @@ RUN useradd -G www-data,root -u 1000 -d /home/laravel laravel
 RUN mkdir -p /home/laravel/.composer && \
     chown -R laravel:laravel /home/laravel
 
-# Set working directory
-WORKDIR /var/www/html
-
 # Copy existing application directory contents
 COPY --chown=laravel:laravel . .
 
@@ -45,8 +42,8 @@ USER laravel
 RUN composer install --no-interaction --optimize-autoloader
 
 # Set permissions
-RUN chmod -R 755 /var/www/html/storage
-RUN chmod -R 755 /var/www/html/bootstrap/cache
+RUN chmod -R 775 /var/www/html/storage
+RUN chmod -R 775 /var/www/html/bootstrap/cache
 
 # Expose port 9000
 EXPOSE 9000
