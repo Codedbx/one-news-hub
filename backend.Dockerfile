@@ -1,36 +1,55 @@
-# Use the official PHP image as a base image
+# Use official PHP image
 FROM php:8.2-fpm
 
-# Install system dependencies and PHP extensions
+# Set working directory
+WORKDIR /var/www/html
+
+# Install system dependencies
 RUN apt-get update && apt-get install -y \
+    git \
+    curl \
     libpng-dev \
     libjpeg-dev \
     libfreetype6-dev \
     libzip-dev \
     zip \
-    git \
-    && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install gd \
-    && docker-php-ext-install zip \
-    && docker-php-ext-install pdo pdo_mysql
+    unzip \
+    libonig-dev \
+    libxml2-dev
 
-# Set the working directory
-WORKDIR /var/www/html
+# Clear cache
+RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Install PHP extensions
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip
 
 # Install Composer
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Copy the existing Laravel project files into the container
-COPY . .
+# Create system user to run Composer and Artisan Commands
+RUN useradd -G www-data,root -u 1000 -d /home/laravel laravel
+RUN mkdir -p /home/laravel/.composer && \
+    chown -R laravel:laravel /home/laravel
 
-# Install Laravel dependencies via Composer
-RUN composer install --no-dev --optimize-autoloader
+# Set working directory
+WORKDIR /var/www/html
 
-# Give the necessary permissions to Laravel storage and cache directories
-RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
+# Copy existing application directory contents
+COPY --chown=laravel:laravel . .
 
-# Expose the port the app will run on
+# Change current user to laravel
+USER laravel
+
+# Install application dependencies
+RUN composer install --no-interaction --optimize-autoloader
+
+# Set permissions
+RUN chmod -R 755 /var/www/html/storage
+RUN chmod -R 755 /var/www/html/bootstrap/cache
+
+# Expose port 9000
 EXPOSE 9000
 
-# Start the PHP-FPM server
+# Start PHP-FPM
 CMD ["php-fpm"]

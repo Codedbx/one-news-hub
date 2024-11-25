@@ -11,7 +11,7 @@ services:
       - ./news-frontend:/app
       - /app/node_modules
     environment:
-      - VITE_API_URL=http://backend:9000
+      - VITE_API_URL=http://localhost:9000
     networks:
       - news-network
     depends_on:

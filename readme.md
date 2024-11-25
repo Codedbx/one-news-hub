@@ -12,9 +12,10 @@ One News Hub is a comprehensive news aggregation platform built with Laravel (Ba
 
 ## 🛠️ Technologies
 - **Backend:** Laravel
-- **Frontend:** React.js
+- **Frontend:** Vite React
 - **Containerization:** Docker
 - **Caching:** Redis
+- **Database:** MySQL
 
 ## 📋 Prerequisites
 - Docker
@@ -78,7 +79,7 @@ exit
 ```
 
 ### 5. Access Applications
-- **Frontend:** http://localhost:3000
+- **Frontend:** http://localhost:5173
 - **Backend API:** http://localhost:9000
 
 
@@ -129,6 +130,6 @@ one-news-hub/
 Distributed under the MIT License. See `LICENSE` for more information.
 
 ## 📞 Contact
-Your Name - emmanuel.gita@gmail.com
+Email : emmanuel.gita@gmail.com
 
 Project Link: [https://github.com/codedbx/one-news-hub](https://github.com/codedbx/one-news-hub)
