@@ -1,16 +1,16 @@
 
 export const setAuthToken = (token) => {
   if (token) {
-    localStorage.setItem('token', token);
+    window.localStorage.setItem('token', token);
   }
 };
 
 export const removeAuthToken = () => {
-  localStorage.removeItem('token');
+  window.localStorage.removeItem('token');
 };
 
 export const getAuthToken = () => {
-  return localStorage.getItem('token');
+  return window.localStorage.getItem('token');
 };
 
 export const isAuthenticated = () => {

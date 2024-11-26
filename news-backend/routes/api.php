@@ -33,7 +33,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user/validate', [AuthController::class, 'validate']);
     
 
-    Route::get('/preferences', [UserPreferenceController::class, 'show']);
+    Route::get('/preferences/{id}', [UserPreferenceController::class, 'show']);
     Route::post('/preferences', [UserPreferenceController::class, 'store']);
 
     // Article search and personalized feed

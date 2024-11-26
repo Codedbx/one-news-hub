@@ -1,8 +1,21 @@
 import { useNews } from '../../context/NewsContext';
 import { availableCategories, availableSources } from '../../utils/constants';
+import { useState, useEffect } from 'react';
 
 const Filters = () => {
   const { filters, updateFilters } = useNews();
+  const [debouncedQuery, setDebouncedQuery] = useState(filters.q);
+
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (debouncedQuery !== filters.q) {
+        updateFilters({ q: debouncedQuery });
+      }
+    }, 500); 
+
+    return () => clearTimeout(timer);
+  }, [debouncedQuery, filters.q, updateFilters]);
 
   return (
     <div className="flex flex-wrap gap-4 p-4">
@@ -10,8 +23,8 @@ const Filters = () => {
       <input
         type="text"
         placeholder="Search articles..."
-        value={filters.q}
-        onChange={(e) => updateFilters({ q: e.target.value })}
+        value={debouncedQuery}
+        onChange={(e) => setDebouncedQuery(e.target.value)} 
         className="p-2 border rounded"
       />
 

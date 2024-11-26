@@ -12,6 +12,10 @@ const Header = () => {
     { name: 'Home', href: '/', current: true },
   ];
 
+  const userNavigation = [
+    { name: 'Sign out', href: '#', onClick: logout }, 
+  ];
+
   const getUserInitials = (name) => {
     if (!name) return '';
     const nameParts = name.split(' ');

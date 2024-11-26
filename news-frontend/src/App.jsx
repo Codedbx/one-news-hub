@@ -13,8 +13,8 @@ const App = () => {
   return (
     <BrowserRouter>
       <AuthProvider>
-        <NewsProvider>
           <PreferencesProvider>
+        <NewsProvider>
             <div className="min-h-screen bg-gray-100">
               <Header />
               <main className="container mx-auto px-4 py-8">
@@ -29,8 +29,8 @@ const App = () => {
                 </Routes>
               </main>
             </div>
-          </PreferencesProvider>
         </NewsProvider>
+          </PreferencesProvider>
       </AuthProvider>
     </BrowserRouter>
   );

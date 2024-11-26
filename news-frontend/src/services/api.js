@@ -4,7 +4,7 @@ const BASE_URL = "http://127.0.0.1:8000/api";
 
 const api = {
   get: async (endpoint) => {
-    const token = localStorage.getItem('token');
+    const token = window.localStorage.getItem('token');
     const response = await fetch(`${BASE_URL}${endpoint}`, {
       headers: {
         'Authorization': `Bearer ${token}`,
@@ -15,7 +15,7 @@ const api = {
   },
 
   post: async (endpoint, data) => {
-    const token = localStorage.getItem('token');
+    const token = window.localStorage.getItem('token');
     const response = await fetch(`${BASE_URL}${endpoint}`, {
       method: 'POST',
       headers: {

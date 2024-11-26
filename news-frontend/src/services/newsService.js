@@ -27,10 +27,14 @@ const newsService = {
 
       console.log(`Requesting: /search-articles?${queryParams.toString()}`);
 
-      const token = localStorage.getItem('token'); 
-      if (!token) {
-        throw new Error('No authentication token found');
-      }
+      // const token = localStorage.getItem('token'); 
+
+      // console.log('Token set in localStorage:', localStorage.getItem('token'));
+      //   if (!token || token.trim() === '') {
+      //     console.error('No authentication token found');
+      //     throw new Error('No authentication token found');
+      //   }
+      
 
       const response = await api.get(`/search-articles?${queryParams.toString()}`);
 
@@ -61,9 +65,9 @@ const newsService = {
   //   }
   // },
 
-  getPreference: async () => {
+  getPreference: async (param) => {
     try {
-      const response = await api.get('/preferences');
+      const response = await api.get(param);
       return response.responseBody; 
     } catch (error) {
       console.error('Error fetching categories:', error);
@@ -76,7 +80,7 @@ const newsService = {
       const response = await api.post('/preferences', preferences);
 
       console.log(`Testing the preference ${preferences}`);
-      return response.responseBody; // Adjusted for your response format
+      return response; // Adjusted for your response format
     } catch (error) {
       console.error('Error saving article:', error);
       throw error;

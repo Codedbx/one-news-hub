@@ -10,26 +10,33 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const validateToken = async () => {
-      const token = localStorage.getItem('token');
+      const token = window.localStorage.getItem("token");
+
+
       if (!token) {
-        setLoading(false); 
+        setLoading(false);
         return;
       }
   
       try {
-        const user = await authService.getUserFromToken(token); 
-        setUser(user); 
+        const user = await authService.getUserFromToken();
+        
+        setUser(user);
+        setLoading(false);
       } catch (err) {
         console.error('Token validation failed:', err.message);
-        setError('Failed to validate token. Please log in again.');
-        localStorage.removeItem('token'); // Clear invalid token
-      } finally {
-        setLoading(false); 
+        
+        window.localStorage.removeItem('token');
+        setUser(null);
+        setError('Session expired. Please log in again.');
+        setLoading(false);
       }
     };
   
-    validateToken(); 
+    validateToken();
   }, []);
+
+  
   
   
 
@@ -43,7 +50,9 @@ export const AuthProvider = ({ children }) => {
 
 
       
-      localStorage.setItem('token', token);
+      window.localStorage.setItem('token', token);
+
+      console.log('Token set in localStorage:', token); // Verify token is being stored
       setUser(user);
 
       return true; 
@@ -56,21 +65,24 @@ export const AuthProvider = ({ children }) => {
   };
 
   const register = async (userData) => {
+    setError(null); 
     try {
       setLoading(true);
-      const { token, user } = await authService.register(userData);
-      setUser(user);
-      localStorage.setItem('token', token);
-
+      const { token, user } = await authService.register(userData); // Call API
+      setUser(user); 
+      window.localStorage.setItem('token', token); 
+      return true; 
     } catch (err) {
-      setError(err.message);
+      setError(err.message); 
+      return false; 
     } finally {
-      setLoading(false);
+      setLoading(false); 
     }
   };
+  
 
   const logout = () => {
-    localStorage.removeItem('token');
+    window.localStorage.removeItem('token');
     setUser(null);
   };
 

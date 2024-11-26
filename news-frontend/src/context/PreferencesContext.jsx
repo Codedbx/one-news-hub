@@ -20,12 +20,17 @@ export const PreferencesProvider = ({ children }) => {
 
   const loadUserPreferences = async () => {
     try {
-      // const response = await fetch('/api/preferences');
-      const response = await newsService.getPreference();
-      if (!response.ok) {
+      if (!user) {
+        throw new Error('User not authenticated');
+      }
+  
+      const response = await newsService.getPreference(`/preferences/${user.id}`);
+      if (!response.status !== 200) {
         throw new Error('Failed to load preferences');
       }
-      const data = await response.json();
+
+      console.log(`preference ${response}`);
+      const data = response.responseBody;
       setPreferences(data);
     } catch (error) {
       console.error('Error loading preferences:', error);
