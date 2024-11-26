@@ -35,6 +35,9 @@ services:
       - DB_PASSWORD=news_password
       - REDIS_HOST=redis
       - REDIS_PORT=6379
+      - NEWS_API_KEY=
+      - NYTIMES_API_KEY=
+      - GUARDIAN_API_KEY=
     networks:
       - news-network
     depends_on:

@@ -42,6 +42,34 @@ cp .env.example .env
 # - API keys for news sources
 # - Redis configuration
 ```
+## 🔑 API Key Requirements
+
+### Required News APIs
+To fully utilize the news aggregation features, you'll need to obtain API keys from the following sources:
+
+1. **NewsAPI.org**
+   - Visit: https://newsapi.org/
+   - Create a free account
+   - Generate an API key
+
+2. **New York Times API**
+   - Visit: https://developer.nytimes.com/
+   - Create a developer account
+   - Apply for an API key in the Articles API section
+
+3. **The Guardian API**
+   - Visit: https://open-platform.theguardian.com/
+   - Register for an API key
+
+### Setting Up API Keys
+
+#### Backend .env Configuration
+In `news-backend/.env`, add the following lines:
+```env
+NEWS_API_KEY=your_newsapi_org_key
+NYTIMES_API_KEY=your_nytimes_api_key
+GUARDIAN_API_KEY=your_guardian_api_key
+
 
 #### Frontend (.env)
 ```bash
